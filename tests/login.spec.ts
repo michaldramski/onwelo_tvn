@@ -1,4 +1,5 @@
-import test, { expect } from 'playwright/test';
+import { test, expect } from '@playwright/test';
+import { DefaultUser } from '../test-data/test-users';
 
 test('Logins to tvn24.pl', async ({ page }) => {
     // Arrange
@@ -27,10 +28,10 @@ test('Logins to tvn24.pl', async ({ page }) => {
         .click({ delay: 0 });
     await page
         .getByRole('textbox', { name: 'E-mail' })
-        .fill('beth.walker@ethereal.email');
+        .fill(DefaultUser.user_email);
     await page
         .getByRole('textbox', { name: 'Password' })
-        .fill('8x6rRwgYa2194TfUNW');
+        .fill(DefaultUser.password);
 
     await page
         .getByText('Preparing the captcha')

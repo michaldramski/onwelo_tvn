@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "lint:ts": "eslint --flag unstable_ts_config --config eslint.config.ts",
     "test": "playwright test",
-    "test:headed": "playwright test --headed",
+    "test:headed": "playwright test --headed --project=chromium",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui"
   },
