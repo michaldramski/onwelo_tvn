@@ -15,7 +15,10 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed --project=chromium",
     "test:debug": "playwright test --debug",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "test:tag:smoke": "playwright test --grep \"@smoke\"",
+    "test:tag:login": "playwright test --grep \"@login\"",
+    "test:tag:all": "npm run test:tag:smoke && npm run test:tag:login"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
