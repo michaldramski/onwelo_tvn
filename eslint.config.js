@@ -18,6 +18,7 @@ export default [
     {
         rules: {
             'no-console': 'error',
+            'playwright/no-wait-for-selector': 'off',
         },
     },
     ...tseslint.configs.recommended,

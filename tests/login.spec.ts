@@ -1,17 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { DefaultUser } from '../test-data/test-users';
+import NewsPage from '../pages/news.page';
 
-test('Logins to tvn24.pl', async ({ page }) => {
+test('Logins to tvn24.pl', { tag: ['@smoke'] }, async ({ page }) => {
     // Arrange
     test.setTimeout(40 * 1000);
     const delay = 2 * 1000;
+    const newsPage = new NewsPage(page);
 
     // Act
-    await page.goto('https://tvn24.pl/');
-    await page.getByRole('button', { name: 'Akceptuję' }).click({ delay: 0 });
-
-    const iframe = page.frameLocator('iframe.__ipPerunElement');
-    await iframe.locator('.no-box .__ipPopupClose').click();
+    newsPage.open();
+    newsPage.closeCookiesPopup();
+    newsPage.closeNotificationPopup();
 
     await page.waitForURL('https://tvn24.pl/');
 
@@ -64,13 +64,13 @@ test('Logins to tvn24.pl', async ({ page }) => {
     await expect(page.locator('span.account-content__text')).toHaveText('Beth');
 });
 
-test('Logins to tvn24.pl/go', async ({ page }) => {
+test('Logins to tvn24.pl/go', { tag: ['@login'] }, async ({ page }) => {
     // Arrange
     test.setTimeout(40 * 1000);
     const delay = 2 * 1000;
 
     // Act
-    await page.goto('https://tvn24.pl/go');
+    await page.goto('/go');
 
     await page.waitForURL('https://tvn24.pl/go');
     // alternative that also works
@@ -98,10 +98,10 @@ test('Logins to tvn24.pl/go', async ({ page }) => {
         .click({ delay: 0 });
     await page
         .getByRole('textbox', { name: 'E-mail' })
-        .fill('beth.walker@ethereal.email');
+        .fill(DefaultUser.user_email);
     await page
         .getByRole('textbox', { name: 'Password' })
-        .fill('8x6rRwgYa2194TfUNW');
+        .fill(DefaultUser.password);
 
     await page
         .getByText('Preparing the captcha')
