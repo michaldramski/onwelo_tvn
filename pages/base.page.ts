@@ -2,6 +2,7 @@ import { Page } from '@playwright/test';
 
 export default class BasePage {
     page_url: string = process.env.BASE_URL || 'base url not found';
+    delay: number = 2 * 1000;
 
     constructor(protected page: Page) {
         this.page = page;
@@ -27,17 +28,8 @@ export default class BasePage {
         await this.page.getByRole('button', { name: 'Akceptuję' }).click();
     }
 
-    static async closeCookiesPopup(page: Page): Promise<void> {
-        await page.getByRole('button', { name: 'Akceptuję' }).click();
-    }
-
     async closeNotificationPopup(): Promise<void> {
         const iframe = this.page.frameLocator('iframe.__ipPerunElement');
-        await iframe.locator('.no-box .__ipPopupClose').click();
-    }
-
-    static async closeNotificationPopup(page: Page): Promise<void> {
-        const iframe = page.frameLocator('iframe.__ipPerunElement');
         await iframe.locator('.no-box .__ipPopupClose').click();
     }
 }
